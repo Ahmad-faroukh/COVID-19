@@ -25,3 +25,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@get_statistics')->name('get_statistics');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
