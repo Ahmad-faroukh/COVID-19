@@ -50,35 +50,28 @@
 
         <nav class="nav-menu d-none d-lg-block">
             <ul>
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#departments">Departments</a></li>
-                <li><a href="#doctors">Doctors</a></li>
-                <li class="drop-down"><a href="">Drop Down</a>
-                    <ul>
-                        <li><a href="#">Drop Down 1</a></li>
-                        <li class="drop-down"><a href="#">Deep Drop Down</a>
-                            <ul>
-                                <li><a href="#">Deep Drop Down 1</a></li>
-                                <li><a href="#">Deep Drop Down 2</a></li>
-                                <li><a href="#">Deep Drop Down 3</a></li>
-                                <li><a href="#">Deep Drop Down 4</a></li>
-                                <li><a href="#">Deep Drop Down 5</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Drop Down 2</a></li>
-                        <li><a href="#">Drop Down 3</a></li>
-                        <li><a href="#">Drop Down 4</a></li>
-                    </ul>
-                </li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="active"><a href="#why-us">Home</a></li>
+                <li><a href="#Symptoms">Symptoms</a></li>
+                <li><a href="#counts">Global Stats</a></li>
+                <li><a href="#services">Prevention</a></li>
+                <li><a href="#appointment">Country Statistics</a></li>
+                <li><a href="#departments">Medical Facts</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Subscribe</a></li>
 
             </ul>
         </nav><!-- .nav-menu -->
 
-        <a href="#appointment" class="appointment-btn scrollto">Make an Appointment</a>
-
+        @if(auth()->user())
+            <a href="{{route('logout')}}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+               class="appointment-btn scrollto">Logout</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        @else
+            <a href="{{route('login')}}" class="appointment-btn scrollto">Admin Login</a>
+        @endif
     </div>
 </header><!-- End Header -->
 
@@ -87,7 +80,7 @@
     <div class="container">
         <h1>Welcome to Info Zone</h1>
         <h2>Info Zone is a non-profit Covid-19 Informational Center Site</h2>
-        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        <a href="#Symptoms" class="btn-get-started scrollto">Get Started</a>
     </div>
 </section><!-- End Hero -->
 
@@ -142,7 +135,7 @@
     </section><!-- End Why Us Section -->
 
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <section id="Symptoms" class="about">
         <div class="container-fluid">
 
             <div class="row">
@@ -500,35 +493,7 @@
     </section><!-- End Frequently Asked Questions Section -->
 
 
-{{--    <!-- ======= Contact Section ======= -->--}}
-{{--    <section id="contact" class="contact">--}}
-{{--        <div class="container">--}}
-{{--            <div class="section-title">--}}
-{{--                <h2>Join Our Newsletter</h2>--}}
-{{--                <p>Join our covid-19 mail service to get the latest info and updates about the virus</p>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="container">--}}
-{{--            <div class="row mt-5">--}}
-{{--                <div class="col-lg-12 mt-5 mt-lg-0 justify-content-center">--}}
-{{--                    <form action="#" method="post">--}}
-{{--                        <div class="form-row">--}}
-{{--                            <div class="col-md-5 form-group">--}}
-{{--                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-6 form-group">--}}
-{{--                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-1">--}}
-{{--                                <div class="text-center"><button class="btn btn-primary" type="submit">Subscribe</button></div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section><!-- End Contact Section -->--}}
-
+@if(auth()->user()){
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
         <div class="container">
@@ -540,7 +505,8 @@
         <div class="container">
             <div class="row mt-5">
                 <div class="col-lg-12 mt-5 mt-lg-0 justify-content-center">
-                    <form action="#" method="post">
+                    <form action="{{route('mail')}}" method="post">
+                        @csrf
                         <div class="form-row">
                             <div class="col-md-12 form-group">
                                 <input type="text" name="title" class="form-control" id="name" placeholder="Message Tittle" data-rule="minlen:4" required />
@@ -548,7 +514,7 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-12 form-group">
-                                <textarea name="body" id="body" class="form-control" cols="30" rows="10" placeholder="Messege Content" required></textarea>
+                                <textarea name="message" id="body" class="form-control" cols="30" rows="10" placeholder="Messege Content" required></textarea>
                             </div>
                         </div>
                         <div class="form-row justify-content-center">
@@ -561,6 +527,37 @@
             </div>
         </div>
     </section><!-- End Contact Section -->
+@else
+    <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Join Our Newsletter</h2>
+                    <p>Join our covid-19 mail service to get the latest info and updates about the virus</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-lg-12 mt-5 mt-lg-0 justify-content-center">
+                        <form action="{{route('subscribe')}}" method="post">
+                            @csrf
+                            <div class="form-row">
+                                <div class="col-md-5 form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" required />
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" required />
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="text-center"><button class="btn btn-primary" type="submit">Subscribe</button></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End Contact Section -->
+@endif
 
 </main><!-- End #main -->
 
