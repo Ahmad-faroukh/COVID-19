@@ -76,7 +76,7 @@
 </header><!-- End Header -->
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center" style="background: url('{{asset('assets/img/covid-bg.jpg')}}') top center;">
+<section id="hero" class="d-flex align-items-center" style="background: url('{{asset('assets/img/covid-bg.jpg')}}') top center;background-repeat:no-repeat;background-size:cover;">
     <div class="container">
         <h1>Welcome to Info Zone</h1>
         <h2>Info Zone is a non-profit Covid-19 Informational Center Site</h2>
